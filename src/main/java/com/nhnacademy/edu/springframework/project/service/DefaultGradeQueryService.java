@@ -1,8 +1,12 @@
 package com.nhnacademy.edu.springframework.project.service;
 
+import com.nhnacademy.edu.springframework.project.repository.CsvStudents;
 import com.nhnacademy.edu.springframework.project.repository.Score;
+import com.nhnacademy.edu.springframework.project.repository.Students;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DefaultGradeQueryService implements GradeQueryService {
 
@@ -18,12 +22,23 @@ public class DefaultGradeQueryService implements GradeQueryService {
         //
         // Hint. CsvStudents 클래스의 findAll() 이 있네요? 적절히 필터링하고 찾아오면 되겠죠?
         //
-        return null;
+        Students studentRepository = CsvStudents.getInstance();
+        if (studentRepository != null) {
+            Stream<Student> stream = studentRepository.findAll().stream();
+            return stream.filter(student -> student.getName().equals(name)).map(Student::getScore).collect(Collectors.toList());
+        } else return null;
     }
 
     @Override
     public Score getScoreByStudentSeq(int seq) {
         // TODO 6 : 학번으로 점수를 반환합니다. seq 인자가 학번입니다.
-        return null;
+        Students studentRepository = CsvStudents.getInstance();
+        if (studentRepository != null) {
+            Stream<Student> stream = studentRepository.findAll().stream();
+            List<Score> list = stream.map(Student::getScore).filter(score -> score.getStudentSeq() == seq).collect(Collectors.toList());
+            if (list.size() == 1)
+                return list.get(0);
+            else return null;
+        } else return null;
     }
 }

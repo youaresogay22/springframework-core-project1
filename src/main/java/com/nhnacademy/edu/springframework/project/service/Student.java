@@ -1,6 +1,8 @@
 package com.nhnacademy.edu.springframework.project.service;
 
 import com.nhnacademy.edu.springframework.project.repository.Score;
+import lombok.Builder;
+
 
 public class Student {
     private final int seq;
@@ -16,7 +18,15 @@ public class Student {
         this.score = score;
     }
 
-    public Score getScore(){
+    public int getSeq() {
+        return seq;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Score getScore() {
         return this.score;
     }
 
@@ -26,6 +36,6 @@ public class Student {
                 "seq=" + seq +
                 ", name='" + name + '\'' +
                 ", score=" + score +
-                '}'+ '\n';
+                '}' + '\n';
     }
 }

@@ -1,5 +1,8 @@
 package com.nhnacademy.edu.springframework.project.repository;
 
+import lombok.Builder;
+
+@Builder
 public class Score {
     private final int studentSeq;
     private final int score;
