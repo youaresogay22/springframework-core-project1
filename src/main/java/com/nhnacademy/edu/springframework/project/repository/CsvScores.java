@@ -1,17 +1,11 @@
 package com.nhnacademy.edu.springframework.project.repository;
 
-import com.nhnacademy.edu.springframework.project.service.Student;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class CsvScores implements Scores {
@@ -38,11 +32,7 @@ public class CsvScores implements Scores {
     @Override
     public void load() {
         try {
-            String path = String.valueOf(new ClassPathResource("/data/score.csv").getURI());
-            File csvFile = new File("");
-            System.out.println(csvFile.getAbsolutePath());
-            CSVReader csvReader = new CSVReader(new FileReader(csvFile));
-
+            CSVReader csvReader = new CSVReader(new InputStreamReader(CsvScores.class.getResourceAsStream("/data/score.csv")));
             List<String[]> lines = csvReader.readAll();
             lines.forEach(line -> scores.add(new Score(Integer.parseInt(line[0]), Integer.parseInt(line[1]))));
 

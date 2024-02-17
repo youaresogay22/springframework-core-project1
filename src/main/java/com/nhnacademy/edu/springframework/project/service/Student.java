@@ -1,7 +1,6 @@
 package com.nhnacademy.edu.springframework.project.service;
 
 import com.nhnacademy.edu.springframework.project.repository.Score;
-import lombok.Builder;
 
 
 public class Student {

@@ -3,15 +3,12 @@ package com.nhnacademy.edu.springframework.project.repository;
 import com.nhnacademy.edu.springframework.project.service.Student;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 
 public class CsvStudents implements Students {
@@ -37,13 +34,10 @@ public class CsvStudents implements Students {
     @Override
     public void load() {
         try {
-            String path = String.valueOf(new ClassPathResource("/data/student.csv").getURI());
-            File csvFile = new File(path);
-            CSVReader csvReader = new CSVReader(new FileReader(csvFile));
-
+            CSVReader csvReader = new CSVReader(new InputStreamReader(CsvScores.class.getResourceAsStream("/data/score.csv")));
             List<String[]> lines = csvReader.readAll();
             lines.forEach(line -> students.add(new Student(Integer.parseInt(line[0]), line[1])));
-            
+
         } catch (IOException | CsvException e) {
             throw new RuntimeException(e);
         }
